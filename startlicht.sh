@@ -141,11 +141,11 @@ phase5_applications() {
       sudo snap unset system proxy.https
     fi
     
-    echo "Phase4: Remember to install ide-eval-resetter on pycharm!"
+    echo "Phase5: Remember to install ide-eval-resetter on pycharm!"
 }
 
 phase6_python () {
-    echo "Phase6: Install Pycharm, Telegram, VLC"
+    echo "Phase6: Python3.8"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -172,10 +172,29 @@ phase6_python () {
     rm get-pip.py
 }
 
+phase7_docker () {
+    echo "Phase7: Docker engine"
+    echo "Warning! Your Qv2ray must be runnnig for this part!"
+    yn_input
+    yn=$?
+    if [[ $yn == 0 ]];
+    then
+     echo "Phase7: Skiped"
+     return
+    fi
+    cd
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo proxychains sh get-docker.sh
+    sudo usermod -aG docker $(whoami)
+    echo "alias docker-compose='docker compose'" >> .bashrc
+    rm get-docker.sh
+    echo "Phase 7: Please restart your computer"
+}
+
 phase1_chrome
 phase2_git
 phase3_qv2ray
 phase4_necessary_apps
 phase5_applications
 phase6_python
-
+phase7_docker
