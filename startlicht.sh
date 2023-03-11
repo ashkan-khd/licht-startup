@@ -109,7 +109,7 @@ phase4_necessary_apps () {
 }
 
 phase5_applications() {
-    echo "Phase5: Install Pycharm, Telegram, VLC"
+    echo "Phase5: Install Pycharm, Telegram, VLC, VS Code"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -123,6 +123,7 @@ phase5_applications() {
     inst_pych="sudo snap install pycharm-professional --channel=2021.1/stable --classic"
     inst_teleg="sudo snap install telegram-desktop"
     inst_vlc="sudo snap install vlc"
+    inst_vs_code="sudo snap install code --classic"
     if [[ $yn == 1 ]];
     then
       sudo snap set system proxy.http="http://127.0.0.1:8889"
@@ -134,6 +135,7 @@ phase5_applications() {
     wget "https://github.com/ashkan-khd/licht-startup/releases/download/0.0.2/ide-eval-resetter-2.1.9.jar"
     eval $inst_teleg
     eval $inst_vlc
+    eval $inst_vs_code
     
     if [[ $yn == 1 ]];
     then
@@ -191,6 +193,26 @@ phase7_docker () {
     echo "Phase 7: Please restart your computer"
 }
 
+
+phase8_pip_packages () {
+    echo "Phase8: install numpy, matplotlib, jupyter"
+    yn_input
+    yn=$?
+    if [[ $yn == 0 ]];
+    then
+     echo "Phase8: Skiped"
+     return
+    fi
+    cd
+    sudo apt install python3.8-dev
+    pip install -U psutil
+    pip install Pillow
+    pip install numpy
+    pip install matplotlib
+    pip install notebook
+    echo "alias jn='jupyter notebook'" >> .bashrc
+}
+
 phase1_chrome
 phase2_git
 phase3_qv2ray
@@ -198,3 +220,4 @@ phase4_necessary_apps
 phase5_applications
 phase6_python
 phase7_docker
+phase8_pip_packages
