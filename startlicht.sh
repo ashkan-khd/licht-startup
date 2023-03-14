@@ -214,11 +214,55 @@ phase8_pip_packages () {
     echo "alias jn='jupyter notebook'" >> .bashrc
 }
 
-phase1_chrome
-phase2_git
-phase3_qv2ray
-phase4_necessary_apps
-phase5_applications
-phase6_python
-phase7_docker
-phase8_pip_packages
+phase9_install_zsh () {
+    echo "Phase9: install ZSH & OH MY ZSH"
+    echo "Warning! Your Qv2ray must be runnnig for this part!"
+    yn_input
+    yn=$?
+    if [[ $yn == 0 ]];
+    then
+     echo "Phase9: Skiped"
+     return
+    fi
+    cd
+    sudo proxychains apt update
+    sudo proxychains apt install zsh
+    echo "Phase9: Installed ZSH"
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    $SHELL --version
+    echo "Phase9: Installed OH MY ZSH"
+}
+
+phase10_configure_zsh () {
+    echo "Phase10: configure ZSH"
+    yn_input
+    yn=$?
+    if [[ $yn == 0 ]];
+    then
+     echo "Phase10: Skiped"
+     return
+    fi
+    cd
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+    echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+    exec zsh
+    sudo rm -rf ~/powerlevel10k 
+}
+
+from=$1
+if [[ $from == "" ]];
+then
+ from=1
+fi
+
+array=("phase1_chrome" "phase2_git" "phase3_qv2ray" "phase4_necessary_apps" "phase5_applications" "phase6_python" "phase7_docker" "phase8_pip_packages" "phase9_configure_zsh" "phase10_configure_zsh")
+
+curr=0
+for i in "${array[@]}"; do
+    let curr++
+    if [[ $curr -ge $from ]];
+    then
+     eval $i
+    fi 
+done
+
