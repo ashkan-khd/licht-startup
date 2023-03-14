@@ -88,7 +88,7 @@ phase3_qv2ray () {
 }
 
 phase4_necessary_apps () {
-    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains"
+    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains, Curl, Okular"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -104,6 +104,7 @@ phase4_necessary_apps () {
     sudo apt -y install proxychains
     # changing default port to 1089 (works for qv2ray)
     sed -i 's/9050/1089/g' proxychains.conf
+    sudo apt -y install okular
     sudo apt -y install curl
     wget "https://github.com/ashkan-khd/licht-startup/releases/download/0.0.2/vpn.sh" -O ".vpn.sh"
 }
