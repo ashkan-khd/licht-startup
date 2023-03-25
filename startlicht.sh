@@ -88,7 +88,7 @@ phase3_qv2ray () {
 }
 
 phase4_necessary_apps () {
-    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains, Curl, Okular"
+    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains, Curl, Okular, Handbrake"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -105,6 +105,7 @@ phase4_necessary_apps () {
     # changing default port to 1089 (works for qv2ray)
     sed -i 's/9050/1089/g' proxychains.conf
     sudo apt -y install okular
+    sudo apt -y install handbrake
     sudo apt -y install curl
     wget "https://github.com/ashkan-khd/licht-startup/releases/download/0.0.2/vpn.sh" -O ".vpn.sh"
 }
@@ -246,7 +247,30 @@ phase10_configure_zsh () {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
     echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
     exec zsh
-    sudo rm -rf ~/powerlevel10k 
+    sudo rm -rf ~/powerlevel10k
+}
+
+phase11_gnome_extensions () {
+    echo "Phase11: configure gnome-shell-extension"
+    yn_input
+    yn=$?
+    if [[ $yn == 0 ]];
+    then
+     echo "Phase11: Skiped"
+     return
+    fi
+    cd
+    sudo apt install gnome-shell-extension-manager -y
+    wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+    chmod +x gnome-shell-extension-installer
+    sudo mv gnome-shell-extension-installer /usr/bin/
+
+    sudo apt install -y gir1.2-gtop-2.0 gir1.2-nm-1.0 gir1.2-clutter-1.0
+    gnome-shell-extension-installer --yes 4506 # system-monitor
+
+    gnome-shell-extension-installer --yes 779  # Clipboard Indicator
+    gnome-shell-extension-installer --restart-shell
+    echo "Phase11: Please see Extension Manager App"
 }
 
 from=$1
@@ -255,7 +279,7 @@ then
  from=1
 fi
 
-array=("phase1_chrome" "phase2_git" "phase3_qv2ray" "phase4_necessary_apps" "phase5_applications" "phase6_python" "phase7_docker" "phase8_pip_packages" "phase9_configure_zsh" "phase10_configure_zsh")
+array=("phase1_chrome" "phase2_git" "phase3_qv2ray" "phase4_necessary_apps" "phase5_applications" "phase6_python" "phase7_docker" "phase8_pip_packages" "phase9_configure_zsh" "phase10_configure_zsh" "phase11_gnome_extensions")
 
 curr=0
 for i in "${array[@]}"; do
