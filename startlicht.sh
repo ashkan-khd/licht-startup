@@ -88,7 +88,7 @@ phase3_qv2ray () {
 }
 
 phase4_necessary_apps () {
-    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains, Curl, Okular, Handbrake"
+    echo "Phase4: Install Terminator, Openconnect, Snap, Proxychains, Curl, Okular, Handbrake, Htop"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -107,7 +107,7 @@ phase4_necessary_apps () {
     sudo apt -y install okular
     sudo apt -y install handbrake
     sudo apt -y install curl
-    wget "https://github.com/ashkan-khd/licht-startup/releases/download/0.0.2/vpn.sh" -O ".vpn.sh"
+    sudo apt -y install htop
 }
 
 phase5_applications() {
