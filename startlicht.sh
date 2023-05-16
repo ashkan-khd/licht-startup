@@ -126,7 +126,8 @@ phase5_applications() {
     inst_teleg="sudo snap install telegram-desktop"
     inst_vlc="sudo snap install vlc"
     inst_vs_code="sudo snap install code --classic"
-    if [[ $yn == 1 ]];
+    inst_postman="sudo snap install postman"
+    if [[ $use_proxy == 1 ]];
     then
       sudo snap set system proxy.http="http://127.0.0.1:8889"
       sudo snap set system proxy.https="http://127.0.0.1:8889"
@@ -138,8 +139,9 @@ phase5_applications() {
     eval $inst_teleg
     eval $inst_vlc
     eval $inst_vs_code
+    evak $inst_postman
     
-    if [[ $yn == 1 ]];
+    if [[ $use_proxy == 1 ]];
     then
       sudo snap unset system proxy.http
       sudo snap unset system proxy.https
@@ -270,6 +272,7 @@ phase11_gnome_extensions () {
 
     gnome-shell-extension-installer --yes 779  # Clipboard Indicator
     gnome-shell-extension-installer --restart-shell
+    gsettings set org.gnome.desktop.interface clock-show-seconds true
     echo "Phase11: Please see Extension Manager App"
 }
 
