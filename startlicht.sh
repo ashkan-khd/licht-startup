@@ -111,7 +111,7 @@ phase4_necessary_apps () {
 }
 
 phase5_applications() {
-    echo "Phase5: Install Pycharm, Telegram, VLC, VS Code"
+    echo "Phase5: Install Pycharm, Telegram, VLC, VS Code, Postman, Xournal++"
     yn_input
     yn=$?
     if [[ $yn == 0 ]];
@@ -127,6 +127,7 @@ phase5_applications() {
     inst_vlc="sudo snap install vlc"
     inst_vs_code="sudo snap install code --classic"
     inst_postman="sudo snap install postman"
+    inst_xournal="sudo snap install xournalpp"
     if [[ $use_proxy == 1 ]];
     then
       sudo snap set system proxy.http="http://127.0.0.1:8889"
@@ -139,7 +140,8 @@ phase5_applications() {
     eval $inst_teleg
     eval $inst_vlc
     eval $inst_vs_code
-    evak $inst_postman
+    eval $inst_postman
+    eval $inst_xournal
     
     if [[ $use_proxy == 1 ]];
     then
