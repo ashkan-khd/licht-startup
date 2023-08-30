@@ -103,7 +103,7 @@ phase4_necessary_apps () {
     sudo apt -y install snapd
     sudo apt -y install proxychains
     # changing default port to 1089 (works for qv2ray)
-    sed -i 's/9050/1089/g' proxychains.conf
+    sudo sed -i 's/9050/1089/g' /etc/proxychains.conf
     sudo apt -y install okular
     sudo apt -y install handbrake
     sudo apt -y install curl
