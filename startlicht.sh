@@ -165,15 +165,15 @@ phase6_python () {
     echo "Phase6: This method comes from here: https://www.linuxcapable.com/install-python-3-8-on-ubuntu-linux/"
     echo "May God Bless Him."
     echo "Phase6: Make sure Qv2ray is running!"
-    sudo apt update
-    sudo apt upgrade
+    sudo apt update -y
+    sudo apt upgrade -y
     sudo apt install ca-certificates apt-transport-https software-properties-common lsb-release -y
     sudo gpg --list-keys
     sudo gpg --no-default-keyring --keyring /usr/share/keyrings/deadsnakes.gpg --keyserver keyserver.ubuntu.com --recv-keys F23C5A6CF475977595C89F51BA6932366A755776
     echo "deb [signed-by=/usr/share/keyrings/deadsnakes.gpg] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/python.list
-    sudo proxychains apt update
-    sudo proxychains apt install python3.8
-    sudo proxychains apt install python3.8-full
+    sudo proxychains apt update -y
+    sudo proxychains apt install python3.8 -y
+    sudo proxychains apt install python3.8-full -y
     wget https://bootstrap.pypa.io/get-pip.py
     python3.8 get-pip.py
     python3.8 -m pip install --upgrade pip
@@ -230,8 +230,8 @@ phase9_install_zsh () {
      return
     fi
     cd
-    sudo proxychains apt update
-    sudo proxychains apt install zsh
+    sudo proxychains apt update -y
+    sudo proxychains apt install zsh -y
     echo "Phase9: Installed ZSH"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     $SHELL --version
@@ -278,13 +278,14 @@ phase11_gnome_extensions () {
     echo "Phase11: Please see Extension Manager App"
 }
 
+
 from=$1
 if [[ $from == "" ]];
 then
  from=1
 fi
 
-array=("phase1_chrome" "phase2_git" "phase3_qv2ray" "phase4_necessary_apps" "phase5_applications" "phase6_python" "phase7_docker" "phase8_pip_packages" "phase9_configure_zsh" "phase10_configure_zsh" "phase11_gnome_extensions")
+array=("phase1_chrome" "phase2_git" "phase3_qv2ray" "phase4_necessary_apps" "phase5_applications" "phase6_python" "phase7_docker" "phase8_pip_packages" "phase9_install_zsh" "phase10_configure_zsh" "phase11_gnome_extensions")
 
 curr=0
 for i in "${array[@]}"; do
