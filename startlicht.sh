@@ -108,6 +108,7 @@ phase4_necessary_apps () {
     sudo apt -y install handbrake
     sudo apt -y install curl
     sudo apt -y install htop
+    sudo apt -y install ffmpeg
 }
 
 phase5_applications() {
