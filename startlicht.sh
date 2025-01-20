@@ -123,12 +123,13 @@ phase5_applications() {
     cd
     input_from_user "Phase4: Do you want to use proxychains for better speed?"
     use_proxy=$?
-    inst_pych="sudo snap install pycharm-professional --channel=2021.1/stable --classic"
+    inst_pych="sudo snap install pycharm-professional --classic"
     inst_teleg="sudo snap install telegram-desktop"
     inst_vlc="sudo snap install vlc"
     inst_vs_code="sudo snap install code --classic"
     inst_postman="sudo snap install postman"
     inst_xournal="sudo snap install xournalpp"
+    inst_slack="sudo snap install slack"
     if [[ $use_proxy == 1 ]];
     then
       sudo snap set system proxy.http="http://127.0.0.1:8889"
@@ -143,6 +144,7 @@ phase5_applications() {
     eval $inst_vs_code
     eval $inst_postman
     eval $inst_xournal
+    eval $inst_slack
     
     if [[ $use_proxy == 1 ]];
     then
